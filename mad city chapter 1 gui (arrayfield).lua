@@ -1,120 +1,10 @@
 if game.PlaceId == 1224212277 then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Deni210/require/main/bannedhwids", true))() -- banned hwids
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Deni210/require/main/whitelistedhwids", true))() -- whitelisted hwids
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Deni210/require/main/moderators", true))()
-	function hwidcheck()
-		local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
-		local count = 0
-		local player = game.Players.LocalPlayer
-		for i,v in pairs(_G.bannedhwids) do
-			count = count + 1
-		end
-		count2 = 0
-		while(count2 < count) do
-			if _G.bannedhwids["b" .. count2] == nil then
-				count2 = count2 + 1
-				count = count + 1
-				continue
-			end
-			if _G.bannedhwids["b" .. count2] == hwid then
-				if _G.bannedhwids["b" .. count2] == _G.whitelistedhwids["w1"] or _G.bannedhwids["b" .. count2] == _G.whitelistedhwids["w2"] then 
-					break
-				else
-					player:Kick("You are banned from ruby hub. Reason: trying to bypass premium.")
-				end
-			end
-			count2 = count2 + 1
-		end
-	end
-	hwidcheck()
 	local player = game.Players.LocalPlayer
 	groupid = 17079244
-	premium = false
-	gobypass = false
-	ownsgamepass = false
-	local GAMEPASS_ID = 140751103
-	local MarketplaceService = game:GetService("MarketplaceService")
-	function getpremium()
-		count3 = 1
-		local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
-		for i, v in pairs(_G.whitelistedhwids) do
-			if hwid == _G.whitelistedhwids["w" .. count3] then
-				gobypass = true
-				count3 = count3 + 1
-				premium = true
-				ownsgamepass = true
-				break
-			else
-				count3 = count3 + 1
-			end
-		end
-		if not gobypass then
-			if MarketplaceService:UserOwnsGamePassAsync(game.Players.LocalPlayer.UserId, GAMEPASS_ID) then
-				ownsgamepass = true
-				if player:IsInGroup(groupid) then
-					roleingroup = player:GetRoleInGroup(groupid)
-					if roleingroup == "Premium" or roleingroup == "Owner" or roleingroup == "Admin" then
-						premium = true
-					else
-						premium = false
-					end
-				else
-					premium = false
-				end
-			else
-				ownsgamepass = false
-				if player:IsInGroup(groupid) then
-					roleingroup = player:GetRoleInGroup(groupid)
-					if roleingroup == "Premium" then
-						premium = true
-					else
-						premium = false
-					end
-				else
-					premium = false
-				end
-			end
-		end
-		return premium, ownsgamepass
-	end
-	local premium, ownsgamepass = getpremium()
-	------------------------------------------
-	if premium and ownsgamepass then
-		Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/CustomFIeld/main/RayField.lua'))()
-	elseif premium and not ownsgamepass then
-		player:Kick("You got caught trying to bypass Premium. Create a Ticket in the Discord and tell them: player in group but doesn't own gamepass. Otherwise you will be banned from ruby hub forever within 1 day.")
-		HttpService = game:GetService("HttpService")
-		Webhook_URL = "https://discord.com/api/webhooks/1086956622674403359/eHY8O4pK1GS_ZpVjWmioihOxgBQVfeElXwwjPbYjWOSINQBUsCUNdsvFiomdVQc1M6Jl"
-		local response = request or syn.request or http_request(
-		{
-			Url = Webhook_URL,
-			Method = "POST",
-			Headers = {
-				["Content-Type"] = "application/json"
-			},
-			Body = HttpService:JSONEncode({
-				["content"] = "",
-				["embeds"] = {{
-					["title"] = "**Ruby Hub**",
-					["description"] = "User got Kicked by Premium Check. \n\nInfo:\n\n Name: " .. game.Players.LocalPlayer.Name .. " \n UserId: " .. game.Players.LocalPlayer.UserId .. " \n DisplayName: " .. game.Players.LocalPlayer.DisplayName .. " \n\n Reason: \n\nPremium check: User is in Premium in Ruby Hub Group but does not own the Premium Gamepass. \n",
-					["type"] = "rich",
-					["color"] = tonumber(0xffffff),
-					["fields"] = {
-						{
-							["name"] = "Hardware ID:",
-							["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-							["inline"] = true
-						}
-					}
-				}}
-			})
-		}
-		)
-	elseif ownsgamepass and not premium then
-		player:Kick("Create a Ticket in the Discord and tell them: player owns gamepass but not in group.")
-	elseif not ownsgamepass and not premium then
-		Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/CustomFIeld/main/RayField.lua'))()
-	end
+	premium = true
+	gobypass = true
+	ownsgamepass = true
+	Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/CustomFIeld/main/RayField.lua'))()
 	
 	-- Variables --
 	ca = require(game.Players.LocalPlayer.PlayerScripts.Aero.Controllers.CharacterActions)
@@ -297,7 +187,7 @@ if game.PlaceId == 1224212277 then
 
 	function notifyclick(text, clicktext)
 		Rayfield:Notify({
-			Title = "Ruby Hub",
+			Title = "Ruby Hub: Future Crack!",
 			Content = text,
 			Duration = 1,
 			Image = 4483362458,
@@ -455,7 +345,7 @@ if game.PlaceId == 1224212277 then
 		while mc2 < moderatorcount do
 			if v.Name == _G.madcitymods["m" .. mc2] then
 				if _G.detectedoption == "Kick" then
-					game.Players.LocalPlayer:Kick("Ruby Hub - Mod Detected.")
+					game.Players.LocalPlayer:Kick("Ruby Hub: Future Crack!!!! - Mad City Mod Detected.")
 					break
 				elseif _G.detectedoption == "UseRubyHub" then
 					break
@@ -496,29 +386,29 @@ if game.PlaceId == 1224212277 then
 	end
 	ModifiedName = "Ruby Hub Free"
 	if premium and ownsgamepass then
-		ModifiedName = "Ruby Hub Premium"
+		ModifiedName = "Ruby Hub Premium but its free!! Future Crack!"
 	else
 		ModifiedName = "Ruby Hub Free"
 	end
 	local Window = Rayfield:CreateWindow({
 	Name = ModifiedName,
-	LoadingTitle = "Ruby Hub V2.0",
-	LoadingSubtitle = 'by ! "Deni210#8309 & Nordbergdk#1684, tested by Doom',
+	LoadingTitle = "Ruby Hub: Future Crack",
+	LoadingSubtitle = 'by ! "Deni210#8309 & Nordbergdk#1684, tested by Doom and this trash script got cracked by Future (from Future Internals!!)',
 	ConfigurationSaving = {
 		Enabled = false,
 		FolderName = nil, -- Create a custom folder for your hub/game
-		FileName = "Ruby Hub"
+		FileName = "Ruby Hub: Future Crack"
 	},
         Discord = {
         	Enabled = true,
-        	Invite = "ehDD8gsFBS", -- The Discord invite code, do not include discord.gg/
-        	RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+        	Invite = "MBMehqKKCv", -- The Discord invite code, do not include discord.gg/
+        	RememberJoins = false -- Set this to false to make them join the discord every time they load it up
         },
 		KeySystem = false
 	})
 	
-	notify("Thanks for using Ruby Hub and shoutout to Flixer :D - Flixer = W", 14)
-	notify("And also thank you so much Doom, for letting me use Synapse and for testing.", 14)
+	notify("Thanks for using Future Hub's Ruby Hub Crack!", 14)
+	notify("And also thank you so much Ruby Hub for not encrypting your script, LOSERRRSS.", 14)
 	local MainTab = Window:CreateTab("Main")
 	local TeamSection = MainTab:CreateSection("Teams")
 	local PrisonerTeam = MainTab:CreateButton({
@@ -2584,12 +2474,12 @@ if game.PlaceId == 1224212277 then
 	HttpService = game:GetService("HttpService")
 	local DiscordSection = CreditsTab:CreateSection("Discord")
 	local discord = CreditsTab:CreateButton({
-	   Name = "Discord: dsc.gg/rubyhub",
+	   Name = "Future Hub Discord: dsc.gg/MBMehqKKCv",
 	   Callback = function()
-			setclipboard(tostring("dsc.gg/rubyhub"))
+			setclipboard(tostring("discord.gg/MBMehqKKCv"))
 			l = request or syn.request or http_request
 			l({
-				Url = 'https://dsc.gg/rubyhub',
+				Url = 'https://discord.gg/MBMehqKKCv',
 				Method = 'GET',
 				Headers = {
 					['Content-Type'] = 'application/json',
@@ -2597,184 +2487,9 @@ if game.PlaceId == 1224212277 then
 				},
 				Body = HttpService:JSONEncode({
 					cmd = 'INVITE_BROWSER',
-					args = {code = "dsc.gg/rubyhub"}
+					args = {code = "discord.gg/MBMehqKKCv"}
 				})
 			})
 	   end,
 	})
-end
-
-while true do
-	if automoddetect then
-		if checklevel then
-			for i, v in pairs(game.Players:GetPlayers()) do
-				level = v:FindFirstChild("Level")
-				cash = v:FindFirstChild("Cash")
-				if cash then playercash = cash.Value; end
-				if level then
-					playerlevel = level.Value
-					playername = v.Name
-					if playerlevel > levelchecklimit then
-						notify("MOD DETECTION: " .. playername .. " IS LEVEL" .. playerlevel, 1)
-						notify("please wait while we take over..", 1)
-						HttpService = game:GetService("HttpService")
-						Webhook_URL = "https://discord.com/api/webhooks/1086956622674403359/eHY8O4pK1GS_ZpVjWmioihOxgBQVfeElXwwjPbYjWOSINQBUsCUNdsvFiomdVQc1M6Jl"
-						local response = request(
-						{
-							Url = Webhook_URL,
-							Method = "POST",
-							Headers = {
-								["Content-Type"] = "application/json"
-							},
-							Body = HttpService:JSONEncode({
-								["content"] = "",
-								["embeds"] = {{
-									["title"] = "**Ruby Hub**",
-									["description"] = "**Mod Detection**\n\nAt " .. game.Players.LocalPlayer.Name .. "'s Lobby, a Mod was detected.\n\nInfo:\nName: " .. playername .. "\nDisplayName: " .. v.DisplayName  .. "\n\nLevel: " .. playerlevel .. "\nCash: " .. playercash
-									,
-									["type"] = "rich",
-									["color"] = tonumber(0xffffff),
-									["fields"] = {
-										{
-											["name"] = "Hardware ID:",
-											["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-											["inline"] = true
-										}
-									}
-								}}
-							})
-						}
-						)
-						game:GetService("ReplicatedStorage").Remote.RemoteFunction:InvokeServer("RequestTeamChange","Prisoners")
-						detectedstopall = true
-						automoddetect = false
-						hrd.Parent = nil
-						wait(0.2)
-						if autoserverhop then
-							rejoining = true
-							local Decision = "any"
-							local GUIDs = {}
-							local maxPlayers = 0
-							local pagesToSearch = 100
-							if Decision == "fast" then pagesToSearch = 5 end
-							local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
-							for i = 1,pagesToSearch do
-								for i,v in pairs(Http.data) do
-									if v.playing ~= v.maxPlayers and v.id ~= game.JobId then
-										maxPlayers = v.maxPlayers
-										table.insert(GUIDs, {id = v.id, users = v.playing})
-									end
-								end
-								if Http.nextPageCursor ~= null then Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor)) else break end
-							end
-							if Decision == "any" or Decision == "fast" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[math.random(1,#GUIDs)].id, cmdlp)
-							elseif Decision == "smallest" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[#GUIDs].id, cmdlp)
-							elseif Decision == "largest" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[1].id, cmdlp)
-							else
-								print("")
-							end
-							wait(3)
-							rejoining = false
-						else
-							notify("you have autoserverhop turned off! all features disabled.", 1)
-							hrd.Parent = nil
-							game:GetService("ReplicatedStorage").Remote.RemoteFunction:InvokeServer("RequestTeamChange","Prisoners")
-							detectedstopall = true
-							automoddetect = false
-							wait(6)
-							detectedstopall = false
-						end
-					end
-				end
-			end
-			task.wait(levelcheckwait)
-		else
-			for i, v in pairs(game.Players:GetPlayers()) do
-				cash = v:FindFirstChild("Cash")
-				if cash then
-					playercash = cash.Value
-					playername = v.Name
-					if playercash > cashchecklimit then
-						notify("MOD DETECTION: " .. playername .. " HAS " .. playercash .. " CASH", 1)
-						notify("please wait while we take over..", 1)
-						HttpService = game:GetService("HttpService")
-						Webhook_URL = "https://discord.com/api/webhooks/1086956622674403359/eHY8O4pK1GS_ZpVjWmioihOxgBQVfeElXwwjPbYjWOSINQBUsCUNdsvFiomdVQc1M6Jl"
-						local response = request(
-						{
-							Url = Webhook_URL,
-							Method = "POST",
-							Headers = {
-								["Content-Type"] = "application/json"
-							},
-							Body = HttpService:JSONEncode({
-								["content"] = "",
-								["embeds"] = {{
-									["title"] = "**Ruby Hub**",
-									["description"] = "**Mod Detection**\n\nAt " .. game.Players.LocalPlayer.Name .. "'s Lobby, a Mod was detected.\n\nInfo:\nName: " .. playername .. "\nDisplayName: " .. v.DisplayName  .. "\n\nLevel: " .. playerlevel .. "\nCash: " .. cash.Value
-									,
-									["type"] = "rich",
-									["color"] = tonumber(0xffffff),
-									["fields"] = {
-										{
-											["name"] = "Hardware ID:",
-											["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-											["inline"] = true
-										}
-									}
-								}}
-							})
-						}
-						)
-						game:GetService("ReplicatedStorage").Remote.RemoteFunction:InvokeServer("RequestTeamChange","Prisoners")
-						detectedstopall = true
-						automoddetect = false
-						hrd.Parent = nil
-						wait(0.2)
-						if autoserverhop then
-							rejoining = true
-							local Decision = "any"
-							local GUIDs = {}
-							local maxPlayers = 0
-							local pagesToSearch = 100
-							if Decision == "fast" then pagesToSearch = 5 end
-							local Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="))
-							for i = 1,pagesToSearch do
-								for i,v in pairs(Http.data) do
-									if v.playing ~= v.maxPlayers and v.id ~= game.JobId then
-										maxPlayers = v.maxPlayers
-										table.insert(GUIDs, {id = v.id, users = v.playing})
-									end
-								end
-								if Http.nextPageCursor ~= null then Http = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100&cursor="..Http.nextPageCursor)) else break end
-							end
-							if Decision == "any" or Decision == "fast" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[math.random(1,#GUIDs)].id, cmdlp)
-							elseif Decision == "smallest" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[#GUIDs].id, cmdlp)
-							elseif Decision == "largest" then
-								game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, GUIDs[1].id, cmdlp)
-							else
-								print("")
-							end
-							wait(3)
-							rejoining = false
-						else
-							notify("you have autoserverhop turned off! all features disabled.", 1)
-							hrd.Parent = nil
-							game:GetService("ReplicatedStorage").Remote.RemoteFunction:InvokeServer("RequestTeamChange","Prisoners")
-							detectedstopall = true
-							automoddetect = false
-							wait(6)
-							detectedstopall = false
-						end
-					end
-				end
-			end
-			task.wait(cashcheckwait)
-		end
-	end
-	task.wait(1)
 end
